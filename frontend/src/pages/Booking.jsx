@@ -63,6 +63,8 @@ function Booking() {
             projectLocation: project.location,
 
             projectPrice: project.price,
+            
+            projectImage: project.image,
 
             customerName: formData.name,
 
