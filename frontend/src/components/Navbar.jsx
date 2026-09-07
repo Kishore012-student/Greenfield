@@ -93,7 +93,10 @@ function Navbardemo() {
 
                   <Dropdown.Menu>
 
-                    <Dropdown.Item>
+                    <Dropdown.Item
+                      as={Link}
+                      to="/profile"
+                    >
                       Profile
                     </Dropdown.Item>
 

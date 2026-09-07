@@ -1,0 +1,331 @@
+.profile-page {
+
+  min-height: 100vh;
+
+  background-color: #f5f7f5;
+
+  font-family: "Poppins", sans-serif;
+
+}
+
+
+/* Header */
+
+.profile-header {
+
+  text-align: center;
+
+  padding: 70px 20px;
+
+  background-color: #ffffff;
+
+  border-bottom:
+    1px solid #eeeeee;
+
+}
+
+
+.profile-header h1 {
+
+  margin: 0 0 10px;
+
+  font-size: 40px;
+
+  font-weight: 700;
+
+  color: #222222;
+
+}
+
+
+.profile-header p {
+
+  margin: 0;
+
+  font-size: 16px;
+
+  color: #777777;
+
+}
+
+
+/* Content */
+
+.profile-content {
+
+  display: flex;
+
+  justify-content: center;
+
+  padding: 60px 20px;
+
+}
+
+
+/* Card */
+
+.profile-card {
+
+  width: 100%;
+
+  max-width: 550px;
+
+  background-color: #ffffff;
+
+  border-radius: 16px;
+
+  padding: 40px;
+
+  text-align: center;
+
+  box-shadow:
+    0 8px 30px
+    rgba(0, 0, 0, 0.08);
+
+}
+
+
+/* Avatar */
+
+.profile-avatar {
+
+  width: 90px;
+
+  height: 90px;
+
+  margin:
+    0 auto 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background-color: #279c12;
+
+  color: #ffffff;
+
+  border-radius: 50%;
+
+  font-size: 36px;
+
+  font-weight: 600;
+
+}
+
+
+/* Name */
+
+.profile-card h2 {
+
+  margin: 0;
+
+  font-size: 26px;
+
+  color: #222222;
+
+}
+
+
+/* Email */
+
+.profile-email {
+
+  margin:
+    8px 0 30px;
+
+  color: #777777;
+
+}
+
+
+/* Details */
+
+.profile-details {
+
+  border-top:
+    1px solid #eeeeee;
+
+  border-bottom:
+    1px solid #eeeeee;
+
+}
+
+
+.profile-detail {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 18px 0;
+
+  border-bottom:
+    1px solid #eeeeee;
+
+}
+
+
+.profile-detail:last-child {
+
+  border-bottom: none;
+
+}
+
+
+.profile-detail span {
+
+  font-size: 14px;
+
+  color: #777777;
+
+}
+
+
+.profile-detail strong {
+
+  font-size: 15px;
+
+  color: #222222;
+
+}
+
+
+/* Actions */
+
+.profile-actions {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+  margin-top: 30px;
+
+}
+
+
+.profile-actions button {
+
+  width: 100%;
+
+  padding: 13px;
+
+  border: none;
+
+  border-radius: 7px;
+
+  font-family:
+    "Poppins", sans-serif;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+  transition:
+    0.3s ease;
+
+}
+
+
+/* Wishlist */
+
+.profile-wishlist-button {
+
+  background-color: #eaf7e7;
+
+  color: #279c12;
+
+}
+
+
+.profile-wishlist-button:hover {
+
+  background-color: #d8f0d3;
+
+}
+
+
+/* Bookings */
+
+.profile-bookings-button {
+
+  background-color: #279c12;
+
+  color: #ffffff;
+
+}
+
+
+.profile-bookings-button:hover {
+
+  background-color: #198754;
+
+}
+
+
+/* Logout */
+
+.profile-logout-button {
+
+  background-color: #fceaea;
+
+  color: #dc3545;
+
+}
+
+
+.profile-logout-button:hover {
+
+  background-color: #f8d7da;
+
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  .profile-header {
+
+    padding: 50px 20px;
+
+  }
+
+
+  .profile-header h1 {
+
+    font-size: 30px;
+
+  }
+
+
+  .profile-content {
+
+    padding: 35px 15px;
+
+  }
+
+
+  .profile-card {
+
+    padding: 30px 20px;
+
+  }
+
+
+  .profile-detail {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 5px;
+
+  }
+
+}

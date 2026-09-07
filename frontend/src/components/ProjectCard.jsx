@@ -26,13 +26,22 @@ function ProjectCard({
     user?.id || user?._id;
 
 
-  // Create unique wishlist key
+  // Create unique wishlist key for each user
   const wishlistKey =
     userId
       ? `wishlist_${userId}`
       : null;
 
 
+  // Create unique project ID
+  const projectId =
+    id ||
+    project?._id ||
+    project?.id ||
+    name;
+
+
+  // Check wishlist status
   const [isWishlisted, setIsWishlisted] =
     useState(() => {
 
@@ -40,23 +49,25 @@ function ProjectCard({
         return false;
       }
 
-
       const wishlist =
         JSON.parse(
-          localStorage.getItem(
-            wishlistKey
-          )
+          localStorage.getItem(wishlistKey)
         ) || [];
 
 
       return wishlist.some(
-        (item) => item.id === id
+        (item) =>
+          item.id === projectId
       );
 
     });
 
 
-  const handleWishlist = () => {
+  // Handle Wishlist
+  const handleWishlist = (event) => {
+
+    // Prevent other click events
+    event.stopPropagation();
 
 
     // Check login
@@ -73,37 +84,32 @@ function ProjectCard({
     }
 
 
-    const wishlist =
+    const currentWishlist =
       JSON.parse(
-        localStorage.getItem(
-          wishlistKey
-        )
+        localStorage.getItem(wishlistKey)
       ) || [];
 
 
     const existingItem =
-      wishlist.find(
+      currentWishlist.find(
         (item) =>
-          item.id === id
+          item.id === projectId
       );
 
 
     // Remove from wishlist
     if (existingItem) {
 
-
       const updatedWishlist =
-        wishlist.filter(
+        currentWishlist.filter(
           (item) =>
-            item.id !== id
+            item.id !== projectId
         );
 
 
       localStorage.setItem(
         wishlistKey,
-        JSON.stringify(
-          updatedWishlist
-        )
+        JSON.stringify(updatedWishlist)
       );
 
 
@@ -112,11 +118,10 @@ function ProjectCard({
 
     } else {
 
-
       // Add to wishlist
       const wishlistItem = {
 
-        id,
+        id: projectId,
 
         image,
 
@@ -133,7 +138,7 @@ function ProjectCard({
 
       const updatedWishlist = [
 
-        ...wishlist,
+        ...currentWishlist,
 
         wishlistItem,
 
@@ -141,13 +146,8 @@ function ProjectCard({
 
 
       localStorage.setItem(
-
         wishlistKey,
-
-        JSON.stringify(
-          updatedWishlist
-        )
-
+        JSON.stringify(updatedWishlist)
       );
 
 
@@ -158,9 +158,43 @@ function ProjectCard({
   };
 
 
+  // Navigate to project details
+  const handleCardClick = () => {
+
+    navigate(
+      "/project-details",
+      {
+
+        state:
+
+          project || {
+
+            id: projectId,
+
+            image,
+
+            name,
+
+            location,
+
+            price,
+
+            status,
+
+          },
+
+      }
+    );
+
+  };
+
+
   return (
 
-    <div className="project-card">
+    <div
+      className="project-card"
+      onClick={handleCardClick}
+    >
 
 
       <div className="project-image">
@@ -176,17 +210,13 @@ function ProjectCard({
 
           type="button"
 
-          className={`
-            wishlist-button 
-            ${isWishlisted
+          className={`wishlist-button ${
+            isWishlisted
               ? "wishlist-active"
               : ""
-            }
-          `}
+          }`}
 
-          onClick={
-            handleWishlist
-          }
+          onClick={handleWishlist}
 
         >
 
@@ -231,48 +261,6 @@ function ProjectCard({
             {status}
 
           </span>
-
-
-          <button
-
-            type="button"
-
-            className="project-button"
-
-            onClick={() =>
-
-              navigate(
-                "/project-details",
-                {
-
-                  state:
-
-                    project || {
-
-                      id,
-
-                      image,
-
-                      name,
-
-                      location,
-
-                      price,
-
-                      status,
-
-                    },
-
-                }
-              )
-
-            }
-
-          >
-
-            View Details
-
-          </button>
 
 
         </div>

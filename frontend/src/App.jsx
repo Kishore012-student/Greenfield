@@ -13,6 +13,7 @@ import Wishlist from "./pages/Wishlist";
 import Footer from "./components/Footer";
 import Booking from "./pages/Booking";
 import MyBookings from "./pages/MyBookings";
+import Profile from "./pages/Profile";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/project-details" element={<ProjectDetails />} />
         <Route path="/about" element={<About />} />

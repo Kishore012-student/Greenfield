@@ -1,76 +1,38 @@
 import "../css/Projects.css";
 import ProjectCard from "../components/ProjectCard";
+import { useState } from "react";
 
-import plot1 from "../assets/1.jpg";
-import plot2 from "../assets/2.jpg";
+// Import all projects data
+import projects from "../data/projectsData";
 
 function Projects() {
 
-  const projects = [
-    {
-      image: plot1,
-      name: "Green Valley",
-      location: "Madurai, Tamil Nadu",
-      price: "₹10 Lakhs",
-      status: "Available",
-    },
-    {
-      image: plot2,
-      name: "Green Meadows",
-      location: "Dindigul, Tamil Nadu",
-      price: "₹12 Lakhs",
-      status: "Available",
-    },
-    {
-      image: plot1,
-      name: "Green City",
-      location: "Trichy, Tamil Nadu",
-      price: "₹15 Lakhs",
-      status: "Available",
-    },
-    {
-      image: plot2,
-      name: "Green Garden",
-      location: "Madurai, Tamil Nadu",
-      price: "₹9 Lakhs",
-      status: "Available",
-    },
-    {
-      image: plot1,
-      name: "Sunshine Valley",
-      location: "Dindigul, Tamil Nadu",
-      price: "₹11 Lakhs",
-      status: "Available",
-    },
-    {
-      image: plot2,
-      name: "Royal Greens",
-      location: "Trichy, Tamil Nadu",
-      price: "₹18 Lakhs",
-      status: "Available",
-    },
-    {
-      image: plot1,
-      name: "Green Paradise",
-      location: "Madurai, Tamil Nadu",
-      price: "₹14 Lakhs",
-      status: "Available",
-    },
-    {
-      image: plot2,
-      name: "Nature Hills",
-      location: "Dindigul, Tamil Nadu",
-      price: "₹13 Lakhs",
-      status: "Available",
-    },
-  ];
+  const [selectedCategory, setSelectedCategory] =
+    useState("All");
+
+
+  // Filter Projects
+  const filteredProjects =
+    selectedCategory === "All"
+      ? projects
+      : projects.filter(
+          (project) =>
+            project.category === selectedCategory
+        );
+
 
   return (
+
     <main className="projects-page">
+
+
+      {/* Header */}
 
       <section className="projects-header">
 
-        <h1>Our Projects</h1>
+        <h1>
+          Our Projects
+        </h1>
 
         <p>
           Explore our premium plotted developments
@@ -78,31 +40,132 @@ function Projects() {
 
       </section>
 
+
+      {/* Content */}
+
       <section className="projects-content">
+
+
+        {/* Top Section */}
 
         <div className="projects-top">
 
           <div>
-            <h2>Featured Projects</h2>
+
+            <h2>
+              Featured Projects
+            </h2>
 
             <p>
               Find the perfect location for your future
             </p>
+
           </div>
 
+
+          {/* Project Count */}
+
           <span className="project-count">
-            {projects.length} Projects
+
+            {filteredProjects.length} Projects
+
           </span>
 
         </div>
 
+
+        {/* Category Filter */}
+
+        <div className="project-categories">
+
+
+          {/* All */}
+
+          <button
+            type="button"
+            className={
+              selectedCategory === "All"
+                ? "active-category"
+                : ""
+            }
+            onClick={() =>
+              setSelectedCategory("All")
+            }
+          >
+            All
+          </button>
+
+
+          {/* Residential */}
+
+          <button
+            type="button"
+            className={
+              selectedCategory === "Residential Plot"
+                ? "active-category"
+                : ""
+            }
+            onClick={() =>
+              setSelectedCategory(
+                "Residential Plot"
+              )
+            }
+          >
+            Residential Plot
+          </button>
+
+
+          {/* Villa */}
+
+          <button
+            type="button"
+            className={
+              selectedCategory === "Villa Plot"
+                ? "active-category"
+                : ""
+            }
+            onClick={() =>
+              setSelectedCategory(
+                "Villa Plot"
+              )
+            }
+          >
+            Villa Plot
+          </button>
+
+
+          {/* Commercial */}
+
+          <button
+            type="button"
+            className={
+              selectedCategory === "Commercial Plot"
+                ? "active-category"
+                : ""
+            }
+            onClick={() =>
+              setSelectedCategory(
+                "Commercial Plot"
+              )
+            }
+          >
+            Commercial Plot
+          </button>
+
+
+        </div>
+
+
+        {/* Projects Grid */}
+
         <div className="projects-card-grid">
 
-          {projects.map((project, index) => (
+          {filteredProjects.map((project) => (
 
             <ProjectCard
-              key={index}
+              key={project.id}
               project={project}
+              id={project.id}
               image={project.image}
               name={project.name}
               location={project.location}
@@ -114,10 +177,33 @@ function Projects() {
 
         </div>
 
+
+        {/* No Projects */}
+
+        {filteredProjects.length === 0 && (
+
+          <div className="no-projects">
+
+            <h3>
+              No Projects Found
+            </h3>
+
+            <p>
+              No projects available in this category.
+            </p>
+
+          </div>
+
+        )}
+
+
       </section>
 
+
     </main>
+
   );
+
 }
 
 export default Projects;

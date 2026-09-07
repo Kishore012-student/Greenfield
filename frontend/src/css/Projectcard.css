@@ -1,13 +1,26 @@
 .project-card {
-    background-color: #ffffff;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     width: calc(25% - 23px);
     margin: 0;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    cursor: pointer;
+
+    transition: transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.15);
+}
+
+/* Image */
+
 .project-image {
+    position: relative;
     width: 100%;
     height: 220px;
     overflow: hidden;
@@ -20,37 +33,86 @@
     display: block;
 }
 
+/* Wishlist */
+
+.wishlist-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #ffffff;
+    border: none;
+    border-radius: 50%;
+
+    color: #666666;
+    font-size: 23px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.15);
+
+    transition: 0.3s ease;
+}
+
+.wishlist-button:hover {
+    transform: scale(1.08);
+    color: #279c12;
+}
+
+.wishlist-active {
+    color: #279c12;
+}
+
+/* Content */
+
 .project-content {
     padding: 20px;
 }
 
 .project-content h3 {
     margin: 0 0 8px;
+
     font-family: "Poppins", sans-serif;
     font-size: 22px;
     font-weight: 600;
+
     color: #222222;
 }
 
 .project-location {
     margin: 0 0 8px;
+
     font-family: "Poppins", sans-serif;
     font-size: 14px;
+
     color: #666666;
 }
 
 .project-price {
     margin: 0 0 18px;
+
     font-family: "Poppins", sans-serif;
     font-size: 16px;
     font-weight: 500;
+
     color: #279c12;
 }
+
+/* Footer */
 
 .project-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     gap: 10px;
 }
 
@@ -58,52 +120,130 @@
     font-family: "Poppins", sans-serif;
     font-size: 13px;
     font-weight: 500;
+
     color: #279c12;
     background-color: #eaf7e7;
+
     padding: 5px 10px;
     border-radius: 20px;
+
+    white-space: nowrap;
 }
 
-.project-button {
-    background-color: #279c12;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    padding: 8px 14px;
-    font-family: "Poppins", sans-serif;
-    font-size: 14px;
-    cursor: pointer;
+
+@media (max-width: 992px) {
+
+  .project-card {
+    width: calc(50% - 10px);
+  }
+
 }
 
-.project-button:hover {
-    background-color: #198754;
-}
-.project-image {
-    position: relative;
-}
 
-.wishlist-button {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 38px;
-    height: 38px;
+/* =========================
+   Mobile - 3 Cards Per Row
+========================= */
+
+@media (max-width: 480px) {
+
+  .project-card {
+
+    width: calc((100% - 16px) / 3);
+
+    min-width: 0;
+
+    border-radius: 8px;
+  }
+
+
+  /* Image */
+
+  .project-image {
+
+    height: 75px;
+  }
+
+
+  /* Wishlist */
+
+  .wishlist-button {
+
+    top: 5px;
+    right: 5px;
+
+    width: 24px;
+    height: 24px;
+
+    font-size: 15px;
+  }
+
+
+  /* Content */
+
+  .project-content {
+
+    padding: 8px;
+  }
+
+
+  .project-content h3 {
+
+    margin-bottom: 5px;
+
+    font-size: 11px;
+
+    line-height: 15px;
+
+    min-height: 30px;
+
+    overflow: hidden;
+  }
+
+
+  .project-location {
+
+    margin-bottom: 6px;
+
+    font-size: 9px;
+
+    line-height: 13px;
+
+    min-height: 26px;
+  }
+
+
+  .project-price {
+
+    margin-bottom: 8px;
+
+    font-size: 10px;
+
+    line-height: 15px;
+  }
+
+
+  /* Footer */
+
+  .project-footer {
+
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #ffffff;
-    border: none;
-    border-radius: 50%;
-    color: #666666;
-    font-size: 23px;
-    cursor: pointer;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-}
 
-.wishlist-button:hover {
-    color: #279c12;
-}
+    flex-direction: column;
 
-.wishlist-active {
-    color: #279c12;
+    align-items: stretch;
+
+    gap: 6px;
+  }
+
+
+  .project-status {
+
+    padding: 4px 5px;
+
+    font-size: 8px;
+
+    text-align: center;
+
+    white-space: normal;
+  }
 }
