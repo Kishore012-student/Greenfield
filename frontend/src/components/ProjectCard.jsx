@@ -11,125 +11,281 @@ function ProjectCard({
   price,
   status
 }) {
+
   const navigate = useNavigate();
 
-  const [isWishlisted, setIsWishlisted] = useState(() => {
-    const wishlist =
-      JSON.parse(localStorage.getItem("wishlist")) || [];
 
-    return wishlist.some((item) => item.name === name);
-  });
+  // Get logged in user
+  const user = JSON.parse(
+    localStorage.getItem("user")
+  );
+
+
+  // Get user ID
+  const userId =
+    user?.id || user?._id;
+
+
+  // Create unique wishlist key
+  const wishlistKey =
+    userId
+      ? `wishlist_${userId}`
+      : null;
+
+
+  const [isWishlisted, setIsWishlisted] =
+    useState(() => {
+
+      if (!wishlistKey) {
+        return false;
+      }
+
+
+      const wishlist =
+        JSON.parse(
+          localStorage.getItem(
+            wishlistKey
+          )
+        ) || [];
+
+
+      return wishlist.some(
+        (item) => item.id === id
+      );
+
+    });
+
 
   const handleWishlist = () => {
+
+
+    // Check login
+    if (!user) {
+
+      alert(
+        "Please login to add projects to wishlist"
+      );
+
+      navigate("/login");
+
+      return;
+
+    }
+
+
     const wishlist =
-      JSON.parse(localStorage.getItem("wishlist")) || [];
+      JSON.parse(
+        localStorage.getItem(
+          wishlistKey
+        )
+      ) || [];
 
-    const existingItem = wishlist.find(
-      (item) => item.id === id
-    );
 
+    const existingItem =
+      wishlist.find(
+        (item) =>
+          item.id === id
+      );
+
+
+    // Remove from wishlist
     if (existingItem) {
 
-      const updatedWishlist = wishlist.filter(
-        (item) => item.id !== id
-      );
+
+      const updatedWishlist =
+        wishlist.filter(
+          (item) =>
+            item.id !== id
+        );
+
 
       localStorage.setItem(
-        "wishlist",
-        JSON.stringify(updatedWishlist)
+        wishlistKey,
+        JSON.stringify(
+          updatedWishlist
+        )
       );
+
 
       setIsWishlisted(false);
 
+
     } else {
 
+
+      // Add to wishlist
       const wishlistItem = {
+
         id,
+
         image,
+
         name,
+
         location,
+
         price,
-        status
+
+        status,
+
       };
 
+
       const updatedWishlist = [
+
         ...wishlist,
-        wishlistItem
+
+        wishlistItem,
+
       ];
 
+
       localStorage.setItem(
-        "wishlist",
-        JSON.stringify(updatedWishlist)
+
+        wishlistKey,
+
+        JSON.stringify(
+          updatedWishlist
+        )
+
       );
 
+
       setIsWishlisted(true);
+
     }
+
   };
 
+
   return (
+
     <div className="project-card">
 
+
       <div className="project-image">
+
 
         <img
           src={image}
           alt={name}
         />
 
+
         <button
+
           type="button"
-          className={`wishlist-button ${isWishlisted ? "wishlist-active" : ""
-            }`}
-          onClick={handleWishlist}
+
+          className={`
+            wishlist-button 
+            ${isWishlisted
+              ? "wishlist-active"
+              : ""
+            }
+          `}
+
+          onClick={
+            handleWishlist
+          }
+
         >
-          {isWishlisted ? "♥" : "♡"}
+
+          {isWishlisted
+            ? "♥"
+            : "♡"
+          }
+
         </button>
 
+
       </div>
+
 
       <div className="project-content">
 
-        <h3>{name}</h3>
+
+        <h3>
+          {name}
+        </h3>
+
 
         <p className="project-location">
+
           {location}
+
         </p>
 
+
         <p className="project-price">
+
           Starting from {price}
+
         </p>
+
 
         <div className="project-footer">
 
+
           <span className="project-status">
+
             {status}
+
           </span>
 
+
           <button
+
             type="button"
+
             className="project-button"
+
             onClick={() =>
-              navigate("/project-details", {
-                state: project || {
-                  id,
-                  image,
-                  name,
-                  location,
-                  price,
-                  status
+
+              navigate(
+                "/project-details",
+                {
+
+                  state:
+
+                    project || {
+
+                      id,
+
+                      image,
+
+                      name,
+
+                      location,
+
+                      price,
+
+                      status,
+
+                    },
+
                 }
-              })
+              )
+
             }
+
           >
+
             View Details
+
           </button>
+
 
         </div>
 
+
       </div>
 
+
     </div>
+
   );
+
 }
+
 
 export default ProjectCard;
