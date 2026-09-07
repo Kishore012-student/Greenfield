@@ -47,7 +47,7 @@ function Booking() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/bookings",
+        "https://greenfield-bwst.onrender.com/api/bookings",
         {
           method: "POST",
 
