@@ -10,127 +10,197 @@ function MyBookings() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // தற்போது localhost use பண்ணலாம்
-  const API_URL = "http://localhost:5000/api/bookings";
+  const API_URL =
+    "https://greenfield-bwst.onrender.com/api/bookings";
 
 
   useEffect(() => {
-    fetchBookings();
-  }, []);
 
+    const loadBookings = async () => {
 
-  // Fetch User Bookings
-  const fetchBookings = async () => {
-    try {
-      const userData = JSON.parse(
-        localStorage.getItem("user")
-      );
+      try {
 
-      if (!userData) {
-        toast.error("Please login first");
+        const storedUser =
+          localStorage.getItem("user");
 
-        setTimeout(() => {
+        if (!storedUser) {
+
+          toast.error("Please login first");
+
           navigate("/login");
-        }, 1500);
 
-        return;
-      }
+          return;
 
-
-      const response = await fetch(
-        `${API_URL}/user/${userData._id}`
-      );
-
-      const data = await response.json();
+        }
 
 
-      if (response.ok) {
-        setBookings(data);
-      } else {
-        toast.error(
-          data.message || "Failed to load bookings"
+        const userData =
+          JSON.parse(storedUser);
+
+
+        console.log(
+          "User Data:",
+          userData
         );
+
+
+        if (!userData.id) {
+
+          toast.error(
+            "User ID not found"
+          );
+
+          navigate("/login");
+
+          return;
+
+        }
+
+
+        const response =
+          await fetch(
+
+            `${API_URL}/user/${userData.id}`
+
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (response.ok) {
+
+          setBookings(data);
+
+        } else {
+
+          toast.error(
+
+            data.message ||
+            "Failed to load bookings"
+
+          );
+
+        }
+
+      } catch (error) {
+
+        console.error(
+          "Fetch booking error:",
+          error
+        );
+
+        toast.error(
+          "Something went wrong while loading bookings"
+        );
+
+      } finally {
+
+        setLoading(false);
+
       }
 
-    } catch (error) {
-      console.error("Fetch booking error:", error);
+    };
 
-      toast.error(
-        "Something went wrong while loading bookings"
-      );
 
-    } finally {
-      setLoading(false);
-    }
-  };
+    loadBookings();
+
+  }, [navigate]);
 
 
   // Cancel Booking
-  const handleCancelBooking = async (bookingId) => {
-    try {
-      const response = await fetch(
-        `${API_URL}/${bookingId}`,
-        {
-          method: "DELETE",
+
+  const handleCancelBooking =
+    async (bookingId) => {
+
+      try {
+
+        const response =
+          await fetch(
+
+            `${API_URL}/${bookingId}`,
+
+            {
+              method: "DELETE",
+            }
+
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (response.ok) {
+
+          setBookings(
+            (previousBookings) =>
+              previousBookings.filter(
+                (booking) =>
+                  booking._id !== bookingId
+              )
+          );
+
+
+          toast.success(
+            "Booking cancelled successfully!"
+          );
+
+        } else {
+
+          toast.error(
+
+            data.message ||
+            "Failed to cancel booking"
+
+          );
+
         }
-      );
 
-      const data = await response.json();
+      } catch (error) {
 
-
-      if (response.ok) {
-
-        setBookings((previousBookings) =>
-          previousBookings.filter(
-            (booking) =>
-              booking._id !== bookingId
-          )
+        console.error(
+          "Cancel booking error:",
+          error
         );
-
-        toast.success(
-          "Booking cancelled successfully!"
-        );
-
-      } else {
 
         toast.error(
-          data.message ||
-          "Failed to cancel booking"
+          "Something went wrong while cancelling booking"
         );
 
       }
 
-    } catch (error) {
-
-      console.error(
-        "Cancel booking error:",
-        error
-      );
-
-      toast.error(
-        "Something went wrong while cancelling booking"
-      );
-    }
-  };
+    };
 
 
   // Loading
+
   if (loading) {
+
     return (
+
       <main className="my-bookings-page">
 
         <ToastContainer />
 
         <div className="empty-bookings">
-          <h2>Loading Bookings...</h2>
+
+          <h2>
+            Loading Bookings...
+          </h2>
+
         </div>
 
       </main>
+
     );
+
   }
 
 
   return (
+
     <main className="my-bookings-page">
 
       <ToastContainer />
@@ -140,7 +210,9 @@ function MyBookings() {
 
       <section className="my-bookings-header">
 
-        <h1>My Bookings</h1>
+        <h1>
+          My Bookings
+        </h1>
 
         <p>
           View and manage your property booking requests
@@ -158,7 +230,9 @@ function MyBookings() {
 
           <div className="empty-bookings">
 
-            <h2>No Bookings Yet</h2>
+            <h2>
+              No Bookings Yet
+            </h2>
 
             <p>
               You haven't booked any properties yet.
@@ -170,7 +244,9 @@ function MyBookings() {
                 navigate("/projects")
               }
             >
+
               Explore Projects
+
             </button>
 
           </div>
@@ -201,13 +277,13 @@ function MyBookings() {
                 ) : (
 
                   <div className="booking-image-placeholder">
+
                     No Image Available
+
                   </div>
 
                 )}
 
-
-                {/* Booking Content */}
 
                 <div className="booking-card-content">
 
@@ -238,8 +314,6 @@ function MyBookings() {
 
                   </div>
 
-
-                  {/* Booking Details */}
 
                   <div className="booking-details">
 
@@ -295,7 +369,8 @@ function MyBookings() {
                           ? new Date(
                               booking.visitDate
                             ).toLocaleDateString()
-                          : "Not selected"}
+                          : "Not selected"
+                        }
 
                       </strong>
 
@@ -327,7 +402,8 @@ function MyBookings() {
                           ? new Date(
                               booking.createdAt
                             ).toLocaleDateString()
-                          : "N/A"}
+                          : "N/A"
+                        }
 
                       </strong>
 
@@ -337,9 +413,8 @@ function MyBookings() {
                   </div>
 
 
-                  {/* Cancel Button */}
-
                   <button
+
                     className="cancel-booking-button"
 
                     onClick={() =>
@@ -347,6 +422,7 @@ function MyBookings() {
                         booking._id
                       )
                     }
+
                   >
 
                     Cancel Booking
@@ -371,7 +447,10 @@ function MyBookings() {
 
 
     </main>
+
   );
+
 }
+
 
 export default MyBookings;

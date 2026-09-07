@@ -86,51 +86,32 @@ router.post("/", async (req, res) => {
 
 // Get User Bookings
 
-router.get(
-  "/user/:userId",
+router.get("/user/:userId", async (req, res) => {
 
-  async (req, res) => {
+  try {
 
-    try {
+    const bookings = await Booking.find({
+      user: req.params.userId,
+    }).sort({
+      createdAt: -1,
+    });
 
-      const bookings =
-        await Booking.find({
+    res.status(200).json(bookings);
 
-          user:
-            req.params.userId,
+  } catch (error) {
 
-        }).sort({
+    console.log(
+      "Fetch bookings error:",
+      error
+    );
 
-          createdAt: -1,
-
-        });
-
-
-      res.status(200).json(
-        bookings
-      );
-
-
-    } catch (error) {
-
-      console.log(
-        "Fetch bookings error:",
-        error
-      );
-
-
-      res.status(500).json({
-
-        message:
-          "Failed to fetch bookings",
-
-      });
-
-    }
+    res.status(500).json({
+      message: "Failed to fetch bookings",
+    });
 
   }
 
-);
+});
 
 
 
