@@ -1,0 +1,150 @@
+.projects-page {
+  font-family: "Poppins", sans-serif;
+  background-color: #ffffff;
+  min-height: 100vh;
+}
+
+
+/* ================= HEADER ================= */
+
+.projects-header {
+  text-align: center;
+  padding: 70px 20px;
+  background-color: #f5f7f5;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.projects-header h1 {
+  margin: 0 0 12px;
+  font-size: 42px;
+  font-weight: 700;
+  color: #222222;
+}
+
+.projects-header p {
+  margin: 0;
+  font-size: 16px;
+  color: #666666;
+}
+
+
+/* ================= CONTENT ================= */
+
+.projects-content {
+  max-width: 1400px;
+  margin: auto;
+  padding: 60px 40px;
+}
+
+
+/* ================= TOP ================= */
+
+.projects-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 35px;
+}
+
+.projects-top h2 {
+  margin: 0 0 6px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #222222;
+}
+
+.projects-top p {
+  margin: 0;
+  font-size: 14px;
+  color: #777777;
+}
+
+.project-count {
+  background-color: #eaf7e7;
+  color: #279c12;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+/* ================= PROJECT GRID ================= */
+
+.projects-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+
+/* ProjectCard existing width remove */
+
+.projects-card-grid .project-card {
+  width: 100%;
+  margin: 0;
+}
+
+
+/* ================= LAPTOP ================= */
+
+@media (max-width: 1200px) {
+
+  .projects-card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+}
+
+
+/* ================= TABLET ================= */
+
+@media (max-width: 900px) {
+
+  .projects-content {
+    padding: 45px 25px;
+  }
+
+  .projects-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 600px) {
+
+  .projects-header {
+    padding: 50px 20px;
+  }
+
+  .projects-header h1 {
+    font-size: 32px;
+  }
+
+  .projects-header p {
+    font-size: 14px;
+  }
+
+  .projects-content {
+    padding: 35px 20px;
+  }
+
+  .projects-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .projects-top h2 {
+    font-size: 24px;
+  }
+
+  .projects-card-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+}
